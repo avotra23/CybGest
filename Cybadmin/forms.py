@@ -8,22 +8,21 @@ class LoginForm(forms.Form):
 
 # Formulaire d'enregistrement
 class SignupForm(UserCreationForm):
-    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    adresse = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'username'}))
+    first_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'first name'}))
+    last_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'last name'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control','placeholder':'exemple@gmail.com'}))
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder':'**************'}),
         label="Password"
     )
     password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder':'**************'}),
         label="Confirm Password"
     )
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'adresse', 'password1', 'password2')
+        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
 
 
 # Formulaire de changement de mot_de_passe

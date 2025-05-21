@@ -1,0 +1,76 @@
+{% load static %}
+<html lang="fr">
+    <head>
+        <title> Cyber-Md</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'bootstrap-icons/font/bootstrap-icons.css' %}">
+        <style>
+            body{
+                
+                min-height: 100vh;
+                overflow: hidden;
+            }
+            .signup-box{
+                width: 400px;
+                height: 500px;
+                background: white;
+                padding: 30px;
+                box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
+                margin-top : 100px;
+            }
+            .form-control{
+                border-radius: 10px;
+            }
+            .btn-primary{
+                border-radius: 10px;
+            }
+        </style>
+    </head>
+    <body class="d-flex justify-content-center">
+        <div class="signup-box">
+            <h3 class="text-center mb-4"><img src="{% static 'images/utilisateur.png' %}" alt="" width="30"> Connexion</h3>
+            <form method="POST" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                      <i class="bi bi-person-vcard"></i> <!-- Bootstrap Icon -->
+                    </span>
+                    {{ form.first_name }}
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">
+                      <i class="bi bi-person-vcard"></i>
+                    </span>
+                    {{ form.last_name }}
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">
+                      <i class="bi bi-person"></i> <!-- Bootstrap Icon -->
+                    </span>
+                    {{ form.username}}
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">
+                      <i class="bi bi-envelope-at"></i> <!-- Bootstrap Icon -->
+                    </span>
+                    {{ form.email}}
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">
+                      <i class="bi bi-lock"></i> <!-- Bootstrap Icon -->
+                    </span>
+                    {{ form.password1 }}
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">
+                      <i class="bi bi-lock"></i> <!-- Bootstrap Icon -->
+                    </span>
+                    {{ form.password2}}
+                  </div>
+                <div class="d-grid">
+                    <button class="btn btn-primary" type="submit">S'inscrire</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
