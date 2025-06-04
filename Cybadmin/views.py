@@ -5,25 +5,35 @@ from .models import Poste
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+import json
 # Create your views here.
 
 @csrf_exempt
 @require_POST
 def demande(request):
-    ip = request.POST.get('ip')
-    action = request.POST.get('action')
-    try :
-        poste = Poste.objects.get(ip=ip)
+    try:
+        data = json.loads(request.body)
+        ip = data.get('ip')
+        action = data.get('action')
     except Exception as e:
-        print("Erreur",e)
-    if action =="autoriser":
+        return JsonResponse({'success': False, 'error': 'Invalid JSON'})
+
+    try:
+        poste = Poste.objects.get(ip=ip)
+    except Poste.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Poste introuvable'})
+
+    if action == "autoriser":
         poste.etat = "autoriser"
+        print(ip+" "+action)
     elif action == "refuser":
         poste.etat = "refuser"
     else:
-        return JsonResponse({'success':False,'error':'action invalid'})
+        return JsonResponse({'success': False, 'error': 'Action invalide'})
+
     poste.save()
-    return JsonResponse({'success':True,'etat':poste.etat})
+    return JsonResponse({'success': True, 'etat': poste.etat})
+
 def login(request):
     if request.method == "POST":
         form = LoginForm(request.POST)

@@ -3,6 +3,8 @@ import os
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox,QDialog
 import requests
+import socket
+import json
 class conDial(QDialog):
     def __init__(self):
         super(conDial,self).__init__()
@@ -13,13 +15,25 @@ class conDial(QDialog):
     def connexion(self):
         SERVER_URL = "http://127.0.0.1:8000"
         try:
-            requests.post(
+            # Récupérer IP locale (optionnel si nécessaire)
+            # ip = socket.gethostbyname(socket.gethostname())
+            ip = '192.168.1.1'
+            # Construire les données
+            data = {
+                'ip': ip,
+                'action': 'autoriser'  # ou une autre action selon logique
+            }
+
+            response = requests.post(
                 f"{SERVER_URL}/api/demander/",
-                headers={'Content-Type':'application/json'}
+                headers={'Content-Type': 'application/json'},
+                data=json.dumps(data)
             )
-            print(requests.post)
+
+            print(response.json())
+
         except Exception as e:
-            print("Erreur de demande:",e)
+            print("Erreur de demande:", e)
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
