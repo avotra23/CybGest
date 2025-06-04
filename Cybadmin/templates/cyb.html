@@ -1,0 +1,116 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Cyb-Md</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bootstrap-icons/font/bootstrap-icons.css' %}">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
+    #sidebar {
+      width: 250px;
+      min-height: 100%;
+      background: #f8f9fa;
+      padding: 1rem;
+      border-right: 1px solid #dee2e6;
+    }
+    #main-content {
+      padding: 1rem;
+      flex-grow: 1;
+    }
+    #header {
+        height: 60px;
+        background: #ffffff;
+        border-bottom: 1px solid #dee2e6;
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      
+      .header-title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+
+    <main class="flex-grow-1">
+        <!-- En-tête -->
+  <div id="header" class="position-relative">
+    <div class="header-title text-center w-100">
+      <h4 class="m-0">Cyber-MD Gest</h4>
+    </div>
+    <div class="dropdown position-absolute end-0 me-3">
+      <button class="btn btn-light d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="{% static 'images/utilisateur.png' %}" alt="avatar" width="32" height="32" class="rounded-circle">
+        <span>{{user.username}}</span>
+        <i class="bi bi-caret-down-fill"></i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li class="px-3 py-2">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-envelope-at me-2 text-primary"></i>
+            <span class="dropdown-item-text">{{ user.email }}</span>
+          </div>
+        </li>          
+        <li><hr class="dropdown-divider"></li>
+        <li>
+          <a class="dropdown-item text-danger align-items-center" href="{% url 'logout' %}">
+            Se déconnecter <i class="bi bi-box-arrow-right"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+
+  <!-- Contenu principal -->
+  <div class="d-flex" style="height: calc(100% - 60px);">
+    <!-- Colonne gauche -->
+    <div id="sidebar">
+      <h5 style="text-align: center;">Contrôles</h5>
+      <button class="btn btn-success w-100 mb-2" type="button" data-bs-toggle="modal" data-bs-target="#ajoutSessionModal"> <i class="bi bi-pc-display"></i> Ajout Pc</button>
+      <button class="btn btn-primary w-100 mb-2">Rafraîchir</button>
+      <button class="btn btn-secondary w-100 mb-2">Historique</button>
+    </div>
+    {% include 'modal.html' %}
+    <!-- Centre -->
+    <div id="main-content">
+      <h4>Liste des postes connectés</h4>
+      <div id="pc-list" class="container">
+        <div class="row">
+            {% for p in poste %}
+          <!-- Exemple de carte poste -->
+          <div class="col-6 col-md-4 col-xl-2 mb-3">
+            <div class="card text-center poste-card" data-poste="{{ p.nom }}"
+            data-ip="{{ p.ip }}">
+              <div class="card-body">
+                <i class="bi bi-pc-display fs-1 text-primary"></i><br>
+                <strong>{{p.nom}}</strong>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <!-- Répète les cartes ci-dessus autant de fois que nécessaire -->
+        </div>
+      </div>
+      
+    </div>
+  </div>    
+    </main>
+  
+  <footer class="bg-dark text-white text-center py-3">
+    &copy; 2025 Cybercafé - Tous droits réservés &nbsp; <i class="bi bi-envelope-at">&nbsp; avotramanda23@gmail.com</i>
+  </footer>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    
+</body>
+</html>

@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import Poste
 # Formulaire de connexion
 class LoginForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
@@ -28,3 +29,11 @@ class SignupForm(UserCreationForm):
 # Formulaire de changement de mot_de_passe
 class ResetPassForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    
+
+class PostForms(forms.ModelForm):
+    nom = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'¨PC-0'}))
+    ip = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'192.168.0.1'}))
+    class Meta:
+        model = Poste
+        fields = ('nom','ip')

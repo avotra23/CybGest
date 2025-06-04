@@ -1,0 +1,41 @@
+<div class="modal fade" id="ajoutSessionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        
+        <div class="modal-header border-0">
+          <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body p-4">
+          <div class="icon d-flex align-items-center justify-content-center mb-3">
+            <i class="bi bi-pc-display fs-1"></i>
+          </div>
+          <h5 class="text-center mb-4">Ajouter un poste</h5>
+          
+          <form method="post" action="{% url 'cybges' %}" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    <i class="bi bi-pc-display-horizontal"></i> <!-- Bootstrap Icon -->
+                </span>
+                {{ form.nom }}
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">
+                    <i class="bi bi-router"></i><!-- Bootstrap Icon -->
+                </span>
+                {{ form.ip }}
+              </div>
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary w-100">Ajouter</button>
+            </div>
+          </form>
+        </div>
+        
+        <div class="modal-footer justify-content-center border-0">
+          <small class="text-muted">Système SMA Cybercafé</small>
+        </div>
+        
+      </div>
+    </div>
+  </div>
